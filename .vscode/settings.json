@@ -1,0 +1,26 @@
+{
+  "haskell.manageHLS": "PATH",
+  "haskell.plugin.importLens.codeActionsOn": false,
+  "haskell.plugin.moduleName.globalOn": false,
+  "haskell.plugin.ghcide-type-lenses.config.mode": "diagnostics",
+  "haskell.plugin.hlint.codeActionsOn": false,
+  "haskellShell.ghci.arguments": [
+    "-package-env /home/ghc/.ghc.environment",
+    "-itest"
+  ],
+  "haskell.serverEnvironment": {
+    "GHC_ENVIRONMENT": "/home/ghc/.ghc.environment"
+  },
+  "cSpell.words": [
+    "ghci",
+    "itest",
+    "HSpec"
+  ],
+  "files.exclude": {
+    "**/.github": true,
+    "**/.vscode": true,
+    "**/.devcontainer": true,
+    ".gitignore": true
+  },
+  "haskell.formattingProvider": "stylish-haskell"
+}
