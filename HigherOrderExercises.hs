@@ -2,26 +2,9 @@
 -- Introduction and Overview
 --------------------------------------------------------------------------------
 
--- This lab is a staircase. You start somewhere very familiar: passing functions
--- to other functions. By the end you'll be at monads. Each step exists because
--- the step before it hits a wall -- something plain function composition can't
--- express. As you go, watch for the moment each tool stops working: that moment
--- is the reason the next tool exists.
-
--- Every exercise in this file is the same move -- gluing small functions
--- together into bigger ones. What changes is how hard the gluing gets:
-
---   * higher-order functions and pointfree style: functions are values you can
---     pass around and name without mentioning their arguments
---   * function composition (.): glue a -> b to b -> c, as long as the types
---     line up
---   * functors (fmap): glue a plain function onto a value inside a box (a list,
---     a Maybe)
---   * monads (>>=): glue together functions that *produce* boxes -- exactly
---     where (.) breaks
-
--- The jargon ("pointfree", "functors", "monads") sounds a bit scary, but all of
--- it grows out of something you already know well: higher-order functions.
+-- Part 1 of Lab 7. The lab page and the Gradescope assignment have the
+-- questions; this file has the code you'll edit. It goes from higher-order
+-- functions and pointfree style, through composition (.) and fmap, to >>=.
 
 
 --------------------------------------------------------------------------------
@@ -123,9 +106,6 @@ exp1 = undefined
 -- Functors
 --------------------------------------------------------------------------------
 
--- So far everything we've glued is plain Int -> Int. But real values often come
--- wrapped: a list of results, a result that might be missing.
-
 -- Mapping a function over a list is powerful. But what if we want to map a
 -- function over a different structure, such as a Maybe? That's what functors are for!
 
@@ -186,7 +166,7 @@ exp2 = undefined
 
 -- First, imagine we had the following functions:
 
--- | minNum n is Just n if n is positive; otherwise it's Nothing
+-- | minNum n is Just n if n is non-negative; otherwise it's Nothing
 minNum :: Int -> Maybe Int
 minNum i = if i < 0 then Nothing else Just i
 
@@ -211,9 +191,13 @@ maxNum i = if i < 100 then Just i else Just 100
 --         In the expression: minNum . maxNum
 --         In an equation for ‘numLimits’: numLimits = minNum . maxNum
 
--- Read this error carefully -- it's the wall this whole file has been climbing
--- toward. fmap could reach *into* a box, but maxNum *produces* a box, and minNum
--- wants a plain Int. Neither (.) nor fmap can bridge that gap.
+-- EXERCISE: fmap let us apply a function to a value inside a Maybe, so try
+--           this instead:
+
+--             fmap minNum . maxNum
+
+--           It compiles. What is its type (use :t), and what does it give for 5?
+--           Why is that still not what we want?
 
 -- Fortunately, a Maybe is also a monad. And monads have the bind operator:
 
